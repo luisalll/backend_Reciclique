@@ -1,13 +1,12 @@
 const express = require('express');
 const UserController = require('./UserController');
-const User = require('../models/User');
+const loginRequired = require('../middlewares/loginRequired');
 
 const routes = express.Router();
 
 //Rotas
-routes.post('/users', UserController.store);
-routes.get('/users/:user_id', UserController.show);
-routes.patch('/users/:user_id', UserController.update);
-routes.delete('/users/:user_id', UserController.erase)
+routes.get('/users/:user_id', loginRequired, UserController.show);
+routes.patch('/users', loginRequired, UserController.update);
+routes.delete('/users', loginRequired, UserController.erase)
 
 module.exports = routes;
